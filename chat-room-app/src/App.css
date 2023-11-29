@@ -1,0 +1,134 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.header-part,
+.mytabName,
+.messageCom {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+.changeFlex {
+  flex-direction: row-reverse;
+  justify-content: end;
+  border-radius: 1em;
+  padding: 0.25em 0.75em;
+  margin: 0.0625em;
+  max-width: 50%;
+}
+
+.sender {
+  border-bottom-right-radius: 0.1em;
+  align-self: flex-start;
+  background-color: cornflowerblue;
+  color: #fff;
+}
+.recipient {
+  border-top-right-radius: 0.1em;
+  align-self: flex-end;
+  background-color: #efefef;
+}
+.d-none {
+  /* display: none; */
+  opacity: 0;
+  height: 0;
+}
+.d-block {
+  opacity: 1;
+  height: auto;
+  /* display: block; */
+}
+.messageBox {
+  border: 1px solid black;
+  width: 400px;
+  height: 200px;
+  overflow: auto;
+}
+
+html {
+  font-family: "PT Sans", Georgia, serif;
+}
+
+.discussion {
+  max-width: 600px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.discussion > .bubble {
+  border-radius: 1em;
+  padding: 0.25em 0.75em;
+  margin: 0.0625em;
+  max-width: 50%;
+}
+
+.discussion > .bubble.sender {
+  align-self: flex-start;
+  background-color: cornflowerblue;
+  color: #fff;
+}
+.discussion > .bubble.recipient {
+  align-self: flex-end;
+  background-color: #efefef;
+}
+
+.discussion > .bubble.sender.first {
+  border-bottom-left-radius: 0.1em;
+}
+.discussion > .bubble.sender.last {
+  border-top-left-radius: 0.1em;
+}
+.discussion > .bubble.sender.middle {
+  border-bottom-left-radius: 0.1em;
+  border-top-left-radius: 0.1em;
+}
+
+.discussion > .bubble.recipient.first {
+  border-bottom-right-radius: 0.1em;
+}
+.discussion > .bubble.recipient.last {
+  border-top-right-radius: 0.1em;
+}
+.discussion > .bubble.recipient.middle {
+  border-bottom-right-radius: 0.1em;
+  border-top-right-radius: 0.1em;
+}
