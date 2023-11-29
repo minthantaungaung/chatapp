@@ -73,12 +73,12 @@
 .d-block {
   opacity: 1;
   height: auto;
+  background-color: #61dafb;
   /* display: block; */
 }
 .messageBox {
-  border: 1px solid black;
-  width: 400px;
-  height: 200px;
+  width: auto;
+  height: 500px;
   overflow: auto;
 }
 
