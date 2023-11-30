@@ -148,7 +148,7 @@ function Home() {
                   aria-label="Username"
                 />
                 <button className="btn btn-success" type="submit">
-                  Search
+                  Get Started
                 </button>
               </form>
             </div>
