@@ -1,9 +1,11 @@
 import { Height } from "@mui/icons-material";
 import { useState, useEffect, useLayoutEffect } from "react";
 import * as React from "react";
+import { faUser, faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Home() {
-  const ShowMsgPerTime = 5;
+  const ShowMsgPerTime = 25;
   const [firstTime, setFirstTime] = useState(true);
   const [tabName, setTabName] = useState("");
   const [message, setMessage] = useState("");
@@ -20,10 +22,9 @@ function Home() {
     const storedMessages = JSON.parse(localStorage.getItem("messages")) || [];
 
     const latestMessages = storedMessages
-      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+      .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
       .slice(0, 5);
 
-    // Dispatch the action to update the Redux store
     setStoredMessages(
       latestMessages.sort(
         (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
@@ -40,6 +41,9 @@ function Home() {
 
   useLayoutEffect(() => {
     const localstroageMsg = JSON.parse(localStorage.getItem("messages")) || [];
+    localstroageMsg.sort(
+      (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+    );
     if (localstroageMsg.length !== storedMessages.length) setLoading(true);
     setTimeout(() => {
       if (localstroageMsg.length > storedMessages.length) {
@@ -64,7 +68,7 @@ function Home() {
       const newMessages = JSON.parse(event.newValue);
       setStoredMessages(
         newMessages.sort(
-          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+          (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
         )
       );
     }
@@ -159,12 +163,21 @@ function Home() {
           <center>
             <div
               className="card mt-5"
-              style={{ width: "500px", height: "700px" }}
+              style={{
+                width: "400px",
+                height: "700px",
+                borderRadius: "20px",
+                boxShadow: "10px 10px 2px 1px #ddf",
+              }}
             >
               <div className="card-body">
-                <nav className="navbar sticky-top bg-body-tertiary">
+                <nav
+                  className="navbar mb-2 sticky-top bg-body-tertiary"
+                  style={{ borderRadius: "5px" }}
+                >
                   <div className="container-fluid">
                     <a className="navbar-brand" href="#">
+                      <FontAwesomeIcon icon={faUser} /> &nbsp;
                       {tabName ?? ""}
                     </a>
                   </div>
@@ -172,25 +185,51 @@ function Home() {
                 <div className="row">
                   <div className="messageBox" onScroll={handleScroll}>
                     {loading && (
-                      <div className="lds-ripple">
+                      <div className="lds-ellipsis">
+                        <div></div>
+                        <div></div>
                         <div></div>
                         <div></div>
                       </div>
                     )}
                     {storedMessages.map((msg, index) => (
                       <div className="discussion">
-                        <div
-                          key={index}
-                          className={`bubble ${
-                            msg.name === tabName
-                              ? "recipient first"
-                              : "sender last"
-                          }`}
-                        >
-                          <p>
-                            {msg.name} : {msg.message} {index + 1}
-                          </p>
-                        </div>
+                        {msg.name == tabName && (
+                          <>
+                            <p
+                              style={{
+                                marginLeft: "auto",
+                                marginBottom: "auto",
+                                paddingTop: "1rem",
+                                paddingRight: "0.3rem",
+                                fontSize: "x-small",
+                              }}
+                            >
+                              {msg.name}
+                            </p>
+                            <div key={index} className="bubble recipient first">
+                              <p>{msg.message}</p>
+                            </div>
+                          </>
+                        )}
+                        {msg.name != tabName && (
+                          <>
+                            <p
+                              style={{
+                                marginRight: "auto",
+                                marginBottom: "auto",
+                                paddingTop: "1rem",
+                                paddingLeft: "0.3rem",
+                                fontSize: "x-small",
+                              }}
+                            >
+                              {msg.name}
+                            </p>
+                            <div key={index} className="bubble sender last">
+                              <p>{msg.message}</p>
+                            </div>
+                          </>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -202,6 +241,7 @@ function Home() {
                       className="form-control me-2"
                       value={message}
                       onChange={handleMessageChange}
+                      style={{ borderRadius: "20px" }}
                       placeholder="Send a message"
                       aria-label="message"
                       aria-describedby="button-msg-submit"
@@ -210,6 +250,7 @@ function Home() {
                       className="btn btn-primary"
                       type="submit"
                       id="button-msg-submit"
+                      style={{ borderRadius: "20px" }}
                     >
                       Send
                     </button>
